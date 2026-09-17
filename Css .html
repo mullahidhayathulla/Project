@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Portal</title>
+
+<style>
+  .actions{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+margin-top:15px;
+}
+
+.actions button{
+background:#2563eb;
+padding:15px;
+border:none;
+border-radius:12px;
+color:white;
+font-size:14px;
+}
+
+.bottom-nav{
+display:none;
+}
+
+@media(max-width:768px){
+
+.bottom-nav{
+display:flex;
+justify-content:space-around;
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:#111827;
+padding:10px;
+}
+
+.bottom-nav button{
+background:none;
+border:none;
+color:white;
+font-size:22px;
+}
+
+.dashboard{
+padding-bottom:80px;
+}
+
+}
+  .sidebar{
+position:fixed;
+left:0;
+top:0;
+width:220px;
+height:100%;
+background:#111827;
+padding:20px;
+}
+
+.sidebar h2{
+margin-bottom:20px;
+color:#3b82f6;
+}
+
+.sidebar ul{
+list-style:none;
+}
+
+.sidebar li{
+padding:12px;
+margin:10px 0;
+background:rgba(255,255,255,0.05);
+border-radius:10px;
+cursor:pointer;
+}
+
+.main-content{
+margin-left:240px;
+}
+
+table{
+width:100%;
+margin-top:10px;
+border-collapse:collapse;
+}
+
+th,td{
+padding:10px;
+border:1px solid rgba(255,255,255,0.1);
+text-align:center;
+}
+
+@media(max-width:768px){
+
+.sidebar{
+display:none;
+}
+
+.main-content{
+margin-left:0;
+}
+
+}
+  .grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:15px;
+margin-top:20px;
+}
+
+.stat{
+background:rgba(255,255,255,0.08);
+padding:20px;
+border-radius:15px;
+text-align:center;
+}
+
+.section{
+background:rgba(255,255,255,0.08);
+padding:20px;
+border-radius:15px;
+margin-top:20px;
+}
+
+.subject{
+display:flex;
+justify-content:space-between;
+padding:10px 0;
+border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+.notice{
+padding:10px;
+margin-top:10px;
+background:rgba(255,255,255,0.05);
+border-radius:10px;
+  }
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#0f172a;
+color:white;
+min-height:100vh;
+}
+
+.login-page{
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.card{
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(15px);
+padding:25px;
+border-radius:20px;
+width:90%;
+max-width:350px;
+}
+
+input{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:none;
+border-radius:10px;
+}
+
+button{
+width:100%;
+padding:12px;
+background:#2563eb;
+color:white;
+border:none;
+border-radius:10px;
+cursor:pointer;
+}
+
+.dashboard{
+display:none;
+padding:20px;
+}
+
+.profile{
+background:rgba(255,255,255,0.08);
+padding:20px;
+border-radius:20px;
+text-align:center;
+}
+
+.profile img{
+width:100px;
+height:100px;
+border-radius:50%;
+}
+</style>
+</head>
+<>
+
+<div class="login-page" id="loginPage">
+<div class="card">
+<h2>Student Login</h2>
+
+<input type="text" placeholder="Student ID">
+
+<input type="password" id="pass" placeholder="Password">
+
+<button onclick="togglePass()">Show/Hide Password</button>
+
+<br><br>
+
+<label>
+<input type="checkbox">
+Remember Me
+</label>
+
+<br><br>
+
+<button onclick="login()">Login</button>
+
+<p style="margin-top:10px;">
+Forgot Password?
+</p>
+</div>
+</div>
+
+<div class="dashboard" id="dashboard">
+  <div class="grid">
+    <div class="sidebar">
+
+<h2>Student Portal</h2>
+
+<ul>
+<li>🏠 Dashboard</li>
+<li>📚 Academics</li>
+<li>📅 Timetable</li>
+<li>📢 Notices</li>
+<li>💳 Fees</li>
+<li>⚙️ Settings</li>
+<li onclick="logout()">🚪 Logout</li>
+</ul>
+
+</div>
+
+<div class="main-content">
+
+<div class="stat">
+<h3>Attendance</h3>
+<h1>92%</h1>
+</div>
+
+<div class="stat">
+<h3>GPA</h3>
+<h1>8.7</h1>
+</div>
+
+<div class="stat">
+<h3>Assignments</h3>
+<h1>12</h1>
+</div>
+
+<div class="stat">
+<h3>Fees</h3>
+<h1>Paid</h1>
+</div>
+
+</div>
+
+<div class="section">
+<h2>Attendance Details</h2>
+
+<div class="subject">
+<p>DAA</p>
+<p>95%</p>
+</div>
+
+<div class="subject">
+<p>Operating Systems</p>
+<p>90%</p>
+</div>
+
+<div class="subject">
+<p>Computer Networks</p>
+<p>88%</p>
+</div>
+
+</div>
+
+<div class="section">
+<h2>Latest Notices</h2>
+
+<div class="notice">
+Mid Exam starts from 25 Sept.
+</div>
+
+<div class="notice">
+Assignment Submission Last Date: 20 Sept.
+</div>
+  <div class="section">
+
+<h2>Settings</h2>
+
+<input type="password" placeholder="New Password">
+
+<button>Change Password</button>
+
+<br><br>
+
+<input type="file">
+
+<button>Update Profile Photo</button>
+
+  </div>
+
+</div>
+
+<div class="profile">
+<img src="https://via.placeholder.com/100">
+<h2>Mulla Hidhayathulla</h2>
+<p>Roll No: 23XXXXX</p>
+<p>Branch: CSE</p>
+<p>Semester: 5</p>
+</div>
+
+</div>
+<div class="section">
+
+<h2>Quick Actions</h2>
+
+<div class="actions">
+
+<button>📄 Hall Ticket</button>
+
+<button>📊 Results</button>
+
+<button>📅 Exam Schedule</button>
+
+<button>📚 Study Materials</button>
+
+</div>
+
+</div>
+<script>
+  setTimeout(function(){
+
+alert(
+"Welcome to Student Portal!"
+);
+
+},1000);
+  function searchPortal(){
+
+let input=document
+.getElementById("searchBox")
+.value.toLowerCase();
+
+let sections=
+document.querySelectorAll(".section");
+
+sections.forEach(sec=>{
+
+if(sec.innerText.toLowerCase().includes(input)){
+
+sec.style.display="block";
+
+}else{
+
+sec.style.display="none";
+
+}
+
+});
+
+  }
+  function toggleTheme(){
+
+if(document.body.classList.contains("light")){
+
+document.body.classList.remove("light");
+
+}else{
+
+document.body.classList.add("light");
+
+}
+
+  }
+  let currentRole="student";
+
+function selectRole(role){
+
+currentRole=role;
+
+document.getElementById("loginTitle").innerHTML=
+role.charAt(0).toUpperCase()+role.slice(1)+" Login";
+
+  }
+  function sendMessage(){
+
+let msg=document.getElementById("userMsg").value;
+
+let chat=document.getElementById("chatBox");
+
+chat.innerHTML += "<p><b>You:</b> "+msg+"</p>";
+
+let reply="Please study regularly.";
+
+if(msg.toLowerCase().includes("daa")){
+reply="DAA = Design and Analysis of Algorithms.";
+}
+else if(msg.toLowerCase().includes("os")){
+reply="OS = Operating System manages computer resources.";
+}
+else if(msg.toLowerCase().includes("cn")){
+reply="CN = Computer Networks connects devices for communication.";
+}
+else if(msg.toLowerCase().includes("exam")){
+reply="Check the Exam Schedule section for upcoming exams.";
+}
+
+chat.innerHTML += "<p><b>Bot:</b> "+reply+"</p>";
+
+document.getElementById("userMsg").value="";
+
+chat.scrollTop=chat.scrollHeight;
+  }
+  function saveProfile(){
+
+let name=document.getElementById("studentName").value;
+let roll=document.getElementById("studentRoll").value;
+let branch=document.getElementById("studentBranch").value;
+
+localStorage.setItem("name",name);
+localStorage.setItem("roll",roll);
+localStorage.setItem("branch",branch);
+
+loadProfile();
+
+alert("Profile Saved");
+
+}
+
+function loadProfile(){
+
+if(localStorage.getItem("name")){
+document.getElementById("profileName").innerHTML=
+localStorage.getItem("name");
+}
+
+if(localStorage.getItem("roll")){
+document.getElementById("profileRoll").innerHTML=
+"Roll No: "+localStorage.getItem("roll");
+}
+
+if(localStorage.getItem("branch")){
+document.getElementById("profileBranch").innerHTML=
+"Branch: "+localStorage.getItem("branch");
+}
+
+}
+
+window.onload=loadProfile;
+  function logout(){
+document.getElementById("dashboard").style.display="none";
+document.getElementById("loginPage").style.display="flex";
+  }
+function togglePass(){
+let p=document.getElementById("pass");
+
+if(p.type==="password"){
+p.type="text";
+}else{
+p.type="password";
+}
+}
+
+function login(){
+document.getElementById("loginPage").style.display="none";
+document.getElementById("dashboard").style.display="block";
+}
+</script>
+  
+  
+</body>
+  <div class="bottom-nav">
+
+<button>🏠</button>
+
+<button>📚</button>
+
+<button>📅</button>
+
+<button>📢</button>
+
+<button>⚙️</button>
+
+  </div>
+  </html>
+<div class="section">
+<h2>Weekly Timetable</h2>
+
+<table>
+<tr>
+<th>Day</th>
+<th>Subject</th>
+</tr>
+
+<tr>
+<td>Monday</td>
+<td>DAA</td>
+</tr>
+
+<tr>
+<td>Tuesday</td>
+<td>Operating Systems</td>
+</tr>
+
+<tr>
+<td>Wednesday</td>
+<td>Computer Networks</td>
+</tr>
+
+<tr>
+<td>Thursday</td>
+<td>Deep Learning</td>
+</tr>
+
+<tr>
+<td>Friday</td>
+<td>Connected Devices</td>
+</tr>
+
+</table>
+</div>
+<div class="section">
+
+<h2>CGPA Calculator</h2>
+
+<input type="number" id="s1" placeholder="Semester 1 GPA">
+
+<input type="number" id="s2" placeholder="Semester 2 GPA">
+
+<input type="number" id="s3" placeholder="Semester 3 GPA">
+
+<input type="number" id="s4" placeholder="Semester 4 GPA">
+
+<button onclick="calculateCGPA()">Calculate CGPA</button>
+
+<h3 id="cgpaResult">CGPA: --</h3>
+
+</div>
+<div class="section">
+
+<h2>Edit Profile</h2>
+
+<input type="text" id="studentName" placeholder="Student Name">
+
+<input type="text" id="studentRoll" placeholder="Roll Number">
+
+<input type="text" id="studentBranch" placeholder="Branch">
+
+<button onclick="saveProfile()">Save Profile</button>
+
+</div>
+<h2 id="profileName">Mulla Hidhayathulla</h2>
+<p id="profileRoll">Roll No: 23XXXXX</p>
+<p id="profileBranch">Branch: CSE</p>
+<p>Semester: V</p>
+<div class="section">
+
+<h2>🤖 AI Study Assistant</h2>
+
+<div id="chatBox" style="height:200px;overflow:auto;padding:10px;background:rgba(255,255,255,0.05);border-radius:10px;">
+<p><b>Bot:</b> Hello Student! Ask me about DAA, OS, CN, or exams.</p>
+</div>
+
+<input type="text" id="userMsg" placeholder="Type your question">
+
+<button onclick="sendMessage()">Send</button>
+
+</div>
+<div class="section">
+
+<h2>📚 Study Materials</h2>
+
+<button>DAA Notes</button>
+
+<button>OS Notes</button>
+
+<button>CN Notes</button>
+
+<button>Deep Learning Notes</button>
+
+</div>
+<div class="section">
+
+<h2>Course Progress</h2>
+
+<p>DAA</p>
+<progress value="100" max="100"></progress>
+
+<p>Operating Systems</p>
+<progress value="85" max="100"></progress>
+
+<p>Computer Networks</p>
+<progress value="75" max="100"></progress>
+
+<p>Deep Learning</p>
+<progress value="60" max="100"></progress>
+
+</div>
+<div class="section">
+
+<h2>🎫 Digital ID Card</h2>
+
+<div class="profile">
+
+<img src="https://i.pravatar.cc/150?img=12">
+
+<h3>Mulla Hidhayathulla</h3>
+
+<p>III B.Tech CSE</p>
+
+<p>Roll No: 23XXXXX</p>
+
+<p>College ID: SREC2026</p>
+
+</div>
+
+</div>
+<div class="section">
+<h2 id="clock"></h2>
+</div>
+<div class="login-tabs">
+<button onclick="selectRole('student')">Student</button>
+<button onclick="selectRole('faculty')">Faculty</button>
+<button onclick="selectRole('admin')">Admin</button>
+</div>
+
+<h2 id="loginTitle">Student Login</h2>
+<div class="section">
+
+<h2>🔔 Notifications</h2>
+
+<div class="notice">
+New assignment uploaded for DAA.
+</div>
+
+<div class="notice">
+Operating Systems lab on Friday.
+</div>
+
+<div class="notice">
+Exam fee payment last date extended.
+</div>
+
+</div>
+<div class="section">
+
+<h2>📊 Semester Results</h2>
+
+<table>
+
+<tr>
+<th>Subject</th>
+<th>Grade</th>
+</tr>
+
+<tr>
+<td>DAA</td>
+<td>A</td>
+</tr>
+
+<tr>
+<td>OS</td>
+<td>A+</td>
+</tr>
+
+<tr>
+<td>CN</td>
+<td>B+</td>
+</tr>
+
+<tr>
+<td>Deep Learning</td>
+<td>A</td>
+</tr>
+
+</table>
+
+</div>
+<button onclick="toggleTheme()">🌙 Toggle Theme</button>
+
+<div class="grid">
+
+<div class="stat">
+<h3>Total Subjects</h3>
+<h1>5</h1>
+</div>
+
+<div class="stat">
+<h3>Attendance</h3>
+<h1>92%</h1>
+</div>
+
+<div class="stat">
+<h3>Credits</h3>
+<h1>24</h1>
+</div>
+
+<div class="stat">
+<h3>CGPA</h3>
+<h1>8.75</h1>
+</div>
+
+</div>
+<div class="section">
+
+<h2>📝 Assignments</h2>
+
+<label>
+<input type="checkbox">
+DAA Assignment
+</label>
+
+<br><br>
+
+<label>
+<input type="checkbox">
+Operating Systems Record
+</label>
+
+<br><br>
+
+<label>
+<input type="checkbox">
+Computer Networks Assignment
+</label>
+
+</div>
+<div class="section">
+
+<h2>📚 Digital Library</h2>
+
+<button>Download DAA PDF</button>
+
+<button>Download OS PDF</button>
+
+<button>Download CN PDF</button>
+
+<button>E-Books</button>
+
+</div>
+<div class="section">
+
+<h2>📚 Digital Library</h2>
+
+<button>Download DAA PDF</button>
+
+<button>Download OS PDF</button>
+
+<button>Download CN PDF</button>
+
+<button>E-Books</button>
+
+</div>accesskey
+<div class="section">
+
+<h2>💼 Placement Applications</h2>
+
+<table>
+
+<tr>
+<th>Company</th>
+<th>Status</th>
+</tr>
+
+<tr>
+<td>TCS</td>
+<td>Applied</td>
+</tr>
+
+<tr>
+<td>Infosys</td>
+<td>Eligible</td>
+</tr>
+
+<tr>
+<td>Wipro</td>
+<td>Open</td>
+</tr>
+
+</table>
+
+</div>
+<div class="section">
+
+<h2>👤 Profile Completion</h2>
+
+<progress value="85" max="100"></progress>
+
+<p>85% Complete</p>
+
+</div>
+<div class="section" style="text-align:center">
+
+<img src="https://via.placeholder.com/100"
+style="border-radius:50%;">
+
+<h1>Student ERP Portal</h1>
+
+<p>Academic Management System</p>
+
+</div>
+<div class="section">
+
+<h2>📖 Current Semester Subjects</h2>
+
+<ul>
+<li>Design & Analysis of Algorithms</li>
+<li>Operating Systems</li>
+<li>Computer Networks</li>
+<li>Deep Learning</li>
+<li>Connected Devices</li>
+</ul>
+
+</div>
+<div class="section">
+
+<h2>⏳ Next Exam Countdown</h2>
+
+<h1 id="countdown">10 Days</h1>
+
+</div>
+<div class="section">
+
+<h2>🏆 Achievements</h2>
+
+<div class="notice">
+Completed DAA Course - 100%
+</div>
+
+<div class="notice">
+Participated in Brandathon
+</div>
+
+<div class="notice">
+Completed Deep Learning Assignments
+</div>
+
+</div>accesskey
+<div class="section">
+
+<h2>👨‍🏫 Faculty Contacts</h2>
+
+<table>
+
+<tr>
+<th>Subject</th>
+<th>Faculty</th>
+</tr>
+
+<tr>
+<td>DAA</td>
+<td>Dr. Kumar</td>
+</tr>
+
+<tr>
+<td>OS</td>
+<td>Prof. Reddy</td>
+</tr>
+
+<tr>
+<td>CN</td>
+<td>Dr. Sharma</td>
+</tr>
+
+</table>
+
+</div>accesskey
+<div class="section">
+
+<h2>🎯 Academic Goals</h2>
+
+<label>
+<input type="checkbox">
+Maintain CGPA Above 8.5
+</label>
+
+<br><br>
+
+<label>
+<input type="checkbox">
+Complete Assignments On Time
+</label>
+
+<br><br>
+
+<label>
+<input type="checkbox">
+Prepare for Placements
+</label>
+
+</div>
+<div id="splash">
+    <h1>🎓 Student ERP Portal</h1>
+    <p>Loading...</p>
+</div>
